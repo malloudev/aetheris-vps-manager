@@ -1,0 +1,28 @@
+{
+  "name": "TEMPLATE",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prepublishOnly": "bash ./buildscript.sh && echo 'Project built.'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "types": "./dist/types/index.d.ts",
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "uglifyjs-folder": "^3.3.0"
+  },
+  "dependencies": {},
+  "exports": {
+    ".": {
+      "import": "./dist/ecmascript/index.js",
+      "require": "./dist/commonjs/index.js"
+    },
+    "/**/*": {
+      "import": "./dist/ecmascript",
+      "require": "./dist/commonjs"
+    }
+  }
+}
+
