@@ -5,10 +5,10 @@ set -e
 sudo apt update 
 sudo apt install nodejs npm curl -y 
 
-curl -fsSL https://pkg.cloudflare.com/cloudflare.key | sudo gpg --dearmor -o /usr/share/keyrings/cloudflare-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloudflare-archive-keyring.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
-sudo apt update
-sudo apt install -y cloudflared
+ARCH="$(dpkg --print-architecture)"
+curl -L -o /tmp/cloudflared.deb "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}.deb"
+sudo dpkg -i /tmp/cloudflared.deb || sudo apt-get -f install -y
+rm -f /tmp/cloudflared.deb
 
 # Download typescript and retranspile the code just in case
 yes | sudo npm i -g typescript pm2
